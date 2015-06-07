@@ -27,6 +27,7 @@ var defaultOptions = {
 };
 
 module.exports = function (app, _options) {
+  _options = _options || {};
   // only the files in options.views will be compiled by default
   defaultOptions.babel.only = path.resolve(_options.views);
 
@@ -35,10 +36,10 @@ module.exports = function (app, _options) {
   options.views = path.resolve(_options.views);
   options.extname = options.extname.replace(/^\.?/, '.');
 
-  // regist babel
-  register(options.babel);
   // match function for cache clean
   var match = createMatchFunction(options.babel.only || options.views);
+  // regist babel
+  register(options.babel);
 
   /**
    * render react template to html
@@ -51,7 +52,9 @@ module.exports = function (app, _options) {
     // resolve filepath
     var filepath = path.join(options.views, filename);
     if (filepath.indexOf(options.views) !== 0) {
-      throw new Error('Cannot find module ' + filename);
+      var err = new Error('Cannot find module ' + filename);
+      err.code = 'REACT';
+      throw err;
     }
     if (!path.extname(filepath)) filepath += options.extname;
 
@@ -139,7 +142,6 @@ function createMatchFunction(input) {
 function cleanCache(match) {
   Object.keys(require.cache).forEach(function(module) {
     if (match(require.cache[module].filename)) {
-      // console.log(require.cache[module].filename, module)
       delete require.cache[module];
     }
   });
