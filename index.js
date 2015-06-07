@@ -22,11 +22,11 @@ var defaultOptions = {
   beautify: false,
   cache: process.env.NODE_ENV === 'production',
   extname: 'jsx',
-  writeResp: true
+  writeResp: true,
+  views: path.join(__dirname, 'views')
 };
 
 module.exports = function (app, _options) {
-  assert(_options.views, 'options.views required');
   // only the files in options.views will be compiled by default
   defaultOptions.babel.only = path.resolve(_options.views);
 

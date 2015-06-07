@@ -16,12 +16,12 @@ koa-react-view
 [coveralls-url]: https://coveralls.io/r/koajs/react-view?branch=master
 [david-image]: https://img.shields.io/david/koajs/react-view.svg?style=flat-square
 [david-url]: https://david-dm.org/koajs/react-view
-[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
+[node-image]: https://img.shields.io/badge/node.js-%3E=_0.12-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [gittip-image]: https://img.shields.io/gittip/dead-horse.svg?style=flat-square
 [gittip-url]: https://www.gittip.com/dead-horse/
 
-server side react render for koa
+An Koa view engine which renders React components on server.
 
 ## Installation
 
@@ -30,6 +30,50 @@ $ npm install koa-react-view
 ```
 
 ## Usage
+
+```js
+var react = require('koa-react-view');
+var path = require('path');
+var koa = require('koa');
+
+var app = koa();
+
+var viewpath = path.join(__dirname, 'views');
+var assetspath = path.join(__dirname, 'public');
+
+react(app, {
+  views: viewpath,
+  babel: {
+    only: [
+      viewpath,
+      assetspath
+    ]
+  }
+});
+
+app.use(function* () {
+  this.render(home, {foo: 'bar'});
+});
+
+```
+
+### Options
+
+option | values | default
+-------|--------|--------
+`doctype` | any string that can be used as [a doctype](http://en.wikipedia.org/wiki/Document_type_declaration), this will be prepended to your document | `"<!DOCTYPE html>"`
+`beautify` | `true`: beautify markup before outputting (note, this can affect rendering due to additional whitespace) | `false`
+`views` | the root directory of view files | `path.join(__dirname, 'views')`
+`extname` | the default view file's extname | `jsx`
+`writeResp` | `true`: writes the body response automatically | `true`
+`babel` | the options for [babel/register](https://babeljs.io/docs/usage/require/) | `{only: options.views}`
+`cache` | `true`: cache all the view files | `process.env.NODE_ENV === 'production'`
+
+### `ctx.state`
+
+`koa-react-view` support [ctx.state](https://github.com/koajs/koa/blob/master/docs/api/context.md#ctxstate) in koa.
+
+### [example](example)
 
 ### License
 
