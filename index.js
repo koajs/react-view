@@ -67,6 +67,7 @@ module.exports = function (app, _options) {
       component = component.default || component;
       markup += React.renderToStaticMarkup(React.createElement(component, locals));
     } catch (err) {
+      err.code = 'REACT';
       throw err;
     } finally {
       if (!options.cache) {
