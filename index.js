@@ -29,7 +29,7 @@ var defaultOptions = {
 module.exports = function (app, _options) {
   _options = _options || {};
   // only the files in options.views will be compiled by default
-  defaultOptions.babel.only = path.resolve(_options.views);
+  defaultOptions.babel.only = path.resolve(_options.views || defaultOptions.views);
 
   var options = {};
   copy(_options).and(defaultOptions).to(options);
