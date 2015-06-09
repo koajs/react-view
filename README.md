@@ -6,7 +6,6 @@ koa-react-view
 [![Test coverage][coveralls-image]][coveralls-url]
 [![David deps][david-image]][david-url]
 [![node version][node-image]][node-url]
-[![Gittip][gittip-image]][gittip-url]
 
 [npm-image]: https://img.shields.io/npm/v/koa-react-view.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-react-view
@@ -18,8 +17,6 @@ koa-react-view
 [david-url]: https://david-dm.org/koajs/react-view
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.12-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
-[gittip-image]: https://img.shields.io/gittip/dead-horse.svg?style=flat-square
-[gittip-url]: https://www.gittip.com/dead-horse/
 
 An Koa view engine which renders React components on server.
 
