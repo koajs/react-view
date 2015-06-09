@@ -33,7 +33,7 @@ module.exports = function (app, _options) {
 
   var options = {};
   copy(_options).and(defaultOptions).to(options);
-  options.views = path.resolve(_options.views);
+  options.views = path.resolve(options.views);
   options.extname = options.extname.replace(/^\.?/, '.');
 
   // match function for cache clean
