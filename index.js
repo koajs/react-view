@@ -14,6 +14,7 @@ var register = require('babel/register');
 var assert = require('assert');
 var copy = require('copy-to');
 var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 var path = require('path');
 
 var defaultOptions = {
@@ -68,7 +69,7 @@ module.exports = function (app, _options) {
       var component = require(filepath);
       // Transpiled ES6 may export components as { default: Component }
       component = component.default || component;
-      markup += React.renderToStaticMarkup(React.createElement(component, locals));
+      markup += ReactDOMServer.renderToStaticMarkup(React.createElement(component, locals));
     } catch (err) {
       err.code = 'REACT';
       throw err;

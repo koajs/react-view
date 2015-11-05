@@ -2,6 +2,7 @@ var Content = require('../public/js/components/content');
 var escapeHtml = require('escape-html');
 var Layout = require('./layout');
 var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 
 var index = React.createClass({
   propTypes: {
@@ -14,7 +15,7 @@ var index = React.createClass({
     // xss!!!
     var dataScript = `window.__list__ = '${escapeHtml(JSON.stringify(this.props.list))}';`;
     // render as a dynamic react component
-    var contentString = React.renderToString(<Content list={this.props.list} />);
+    var contentString = ReactDOMServer.renderToString(<Content list={this.props.list} />);
 
     return (
       <Layout title={this.props.title}>
