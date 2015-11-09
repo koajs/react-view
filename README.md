@@ -65,6 +65,17 @@ option | values | default
 `writeResp` | `true`: writes the body response automatically | `true`
 `babel` | the options for [babel/register](https://babeljs.io/docs/usage/require/) | `{only: options.views}`
 `cache` | `true`: cache all the view files | `process.env.NODE_ENV === 'production'`
+`internals` | `true`: include React internals in output | `false`
+
+### renderToString vs renderToStaticMarkup
+
+React provides two ways to render components server-side:  
+
+- [ReactDOMServer.renderToStaticMarkup](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup) strips out all the React internals, reducing the size of the output. Best for static sites.  
+
+- [ReactDOMServer.renderToString](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) maintains React internals, allowing for client-side React to process the rendered markup very speedily. Best for an initial server-side rendering of a client-side application.  
+
+By default, the `ReactDOMServer.renderToStaticMarkup` method will be used. It is possible to use `ReactDOMServer.renderToString` instead (and maintain the React internals) by setting the `internals` option to `true`, or by setting the third parameter of `this.render` to `true` on a case-by-case basis.
 
 ### `ctx.state`
 

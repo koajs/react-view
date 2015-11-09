@@ -24,7 +24,8 @@ var defaultOptions = {
   cache: process.env.NODE_ENV === 'production',
   extname: 'jsx',
   writeResp: true,
-  views: path.join(__dirname, 'views')
+  views: path.join(__dirname, 'views'),
+  internals: false
 };
 
 module.exports = function (app, _options) {
@@ -49,7 +50,7 @@ module.exports = function (app, _options) {
    * @param {Object} _locals
    * @return {String}
    */
-  app.context.render = function(filename, _locals) {
+  app.context.render = function(filename, _locals, internals) {
     // resolve filepath
     var filepath = path.join(options.views, filename);
     if (filepath.indexOf(options.views) !== 0) {
@@ -64,12 +65,16 @@ module.exports = function (app, _options) {
     merge(locals, this.state || {});
     merge(locals, _locals);
 
+    var render = (options.internals || internals || (typeof(_locals) == "boolean" && _locals))
+                    ? ReactDOMServer.renderToString
+                    : ReactDOMServer.renderToStaticMarkup;
+
     var markup = options.doctype || '';
     try {
       var component = require(filepath);
       // Transpiled ES6 may export components as { default: Component }
       component = component.default || component;
-      markup += ReactDOMServer.renderToStaticMarkup(React.createElement(component, locals));
+      markup += render(React.createElement(component, locals));
     } catch (err) {
       err.code = 'REACT';
       throw err;
