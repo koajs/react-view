@@ -30,6 +30,44 @@ describe('koa-react-view', function () {
       .expect('<!DOCTYPE html><div>home</div>', done);
     });
 
+    it('should support ReactDOMServer.renderToString with locals', function (done) {
+      var app = App();
+      app.use(function*() {
+        this.render('home', { }, true);
+      });
+
+      request(app.listen())
+      .get('/')
+      .expect(200)
+      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+    });
+
+    it('should support ReactDOMServer.renderToString without locals', function (done) {
+      var app = App();
+      app.use(function*() {
+        this.render('home', true);
+      });
+
+      request(app.listen())
+      .get('/')
+      .expect(200)
+      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+    });
+
+    it('should support ReactDOMServer.renderToString using internals option', function (done) {
+      var app = App({
+        internals: true
+      });
+      app.use(function*() {
+        this.render('home');
+      });
+
+      request(app.listen())
+      .get('/')
+      .expect(200)
+      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+    });
+
     it('should support ctx.state', function (done) {
       var app = App();
       app.use(function*() {
