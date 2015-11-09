@@ -60,14 +60,20 @@ module.exports = function (app, _options) {
     }
     if (!path.extname(filepath)) filepath += options.extname;
 
+    if (typeof _locals === 'boolean') {
+      internals = _locals;
+      _locals = {};
+    }
+    internals = internals !== undefined ? internals : options.internals;
+
+    var render = internals
+                    ? ReactDOMServer.renderToString
+                    : ReactDOMServer.renderToStaticMarkup;
+
     var locals = {};
     // merge koa state
     merge(locals, this.state || {});
     merge(locals, _locals);
-
-    var render = (options.internals || internals || (typeof(_locals) == "boolean" && _locals))
-                    ? ReactDOMServer.renderToString
-                    : ReactDOMServer.renderToStaticMarkup;
 
     var markup = options.doctype || '';
     try {
