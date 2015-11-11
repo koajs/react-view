@@ -24,7 +24,8 @@ var defaultOptions = {
   cache: process.env.NODE_ENV === 'production',
   extname: 'jsx',
   writeResp: true,
-  views: path.join(__dirname, 'views')
+  views: path.join(__dirname, 'views'),
+  internals: false
 };
 
 module.exports = function (app, _options) {
@@ -49,7 +50,7 @@ module.exports = function (app, _options) {
    * @param {Object} _locals
    * @return {String}
    */
-  app.context.render = function(filename, _locals) {
+  app.context.render = function(filename, _locals, internals) {
     // resolve filepath
     var filepath = path.join(options.views, filename);
     if (filepath.indexOf(options.views) !== 0) {
@@ -58,6 +59,16 @@ module.exports = function (app, _options) {
       throw err;
     }
     if (!path.extname(filepath)) filepath += options.extname;
+
+    if (typeof _locals === 'boolean') {
+      internals = _locals;
+      _locals = {};
+    }
+    internals = internals !== undefined ? internals : options.internals;
+
+    var render = internals
+                    ? ReactDOMServer.renderToString
+                    : ReactDOMServer.renderToStaticMarkup;
 
     var locals = {};
     // merge koa state
@@ -69,7 +80,7 @@ module.exports = function (app, _options) {
       var component = require(filepath);
       // Transpiled ES6 may export components as { default: Component }
       component = component.default || component;
-      markup += ReactDOMServer.renderToStaticMarkup(React.createElement(component, locals));
+      markup += render(React.createElement(component, locals));
     } catch (err) {
       err.code = 'REACT';
       throw err;
