@@ -18,7 +18,7 @@ koa-react-view
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.12-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 
-An Koa view engine which renders React components on server.
+A Koa view engine which renders React components on server.
 
 ## Installation
 
