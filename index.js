@@ -9,12 +9,12 @@
  * Module dependencies.
  */
 
+var ReactDOMServer = require('react-dom/server');
 var beautifyHTML = require('js-beautify').html;
 var register = require('babel/register');
 var assert = require('assert');
 var copy = require('copy-to');
 var React = require('react');
-var ReactDOMServer = require('react-dom/server');
 var path = require('path');
 
 var defaultOptions = {

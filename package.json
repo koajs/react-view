@@ -6,6 +6,9 @@
   "scripts": {
     "test": "make test"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [],
   "author": {
     "name": "dead-horse",
