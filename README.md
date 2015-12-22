@@ -39,13 +39,7 @@ var viewpath = path.join(__dirname, 'views');
 var assetspath = path.join(__dirname, 'public');
 
 react(app, {
-  views: viewpath,
-  babel: {
-    only: [
-      viewpath,
-      assetspath
-    ]
-  }
+  views: viewpath
 });
 
 app.use(function* () {
@@ -53,6 +47,12 @@ app.use(function* () {
 });
 
 ```
+
+This module no longer includes the [Babel] runtime, as that prevented developers
+from using the runtime on the server outside of the scope of this module. Additionally,
+Babel recommends that the polyfill is only included by the parent app to avoid these
+conflicts. If you'd like to use JSX, ES6, or other features that require transpiling,
+you can include Babel in your project directly. See [example].
 
 ### Options
 
@@ -63,17 +63,16 @@ option | values | default
 `views` | the root directory of view files | `path.join(__dirname, 'views')`
 `extname` | the default view file's extname | `jsx`
 `writeResp` | `true`: writes the body response automatically | `true`
-`babel` | the options for [babel/register](https://babeljs.io/docs/usage/require/) | `{only: options.views}`
 `cache` | `true`: cache all the view files | `process.env.NODE_ENV === 'production'`
 `internals` | `true`: include React internals in output | `false`
 
 ### renderToString vs renderToStaticMarkup
 
-React provides two ways to render components server-side:  
+React provides two ways to render components server-side:
 
-- [ReactDOMServer.renderToStaticMarkup](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup) strips out all the React internals, reducing the size of the output. Best for static sites.  
+- [ReactDOMServer.renderToStaticMarkup](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup) strips out all the React internals, reducing the size of the output. Best for static sites.
 
-- [ReactDOMServer.renderToString](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) maintains React internals, allowing for client-side React to process the rendered markup very speedily. Best for an initial server-side rendering of a client-side application.  
+- [ReactDOMServer.renderToString](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) maintains React internals, allowing for client-side React to process the rendered markup very speedily. Best for an initial server-side rendering of a client-side application.
 
 By default, the `ReactDOMServer.renderToStaticMarkup` method will be used. It is possible to use `ReactDOMServer.renderToString` instead (and maintain the React internals) by setting the `internals` option to `true`, or by setting the third parameter of `this.render` to `true` on a case-by-case basis.
 
@@ -86,3 +85,6 @@ By default, the `ReactDOMServer.renderToStaticMarkup` method will be used. It is
 ### License
 
 MIT
+
+[Babel]: http://babeljs.io/
+[example]: https://github.com/koajs/react-view/blob/master/example/app.js#L25
