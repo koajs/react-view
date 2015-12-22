@@ -10,6 +10,7 @@
  */
 
 var staticCache = require('koa-static-cache');
+var register = require('babel/register');
 var react = require('..');
 var path = require('path');
 var koa = require('koa');
@@ -19,14 +20,13 @@ var app = koa();
 var viewpath = path.join(__dirname, 'views');
 var assetspath = path.join(__dirname, 'public');
 
-react(app, {
-  views: viewpath,
-  babel: {
-    only: [
-      viewpath,
-      assetspath
-    ]
-  }
+react(app, { views: viewpath });
+
+register({
+  only: [
+    viewpath,
+    assetspath
+  ]
 });
 
 app.use(staticCache(assetspath));

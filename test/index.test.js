@@ -199,7 +199,7 @@ function App(options) {
     views: path.join(__dirname, 'support/views')
   }).to(options);
 
-  register({ only: options.views })
+  register({ only: options.views });
 
   var app = koa();
   react(app, options);
