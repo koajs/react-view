@@ -22,6 +22,8 @@ var assetspath = path.join(__dirname, 'public');
 
 react(app, { views: viewpath });
 
+// imports babel runtime for JSX views, warning: live transpiling
+// best to precompile in production deploys for perf + reliability
 register({
   only: [
     viewpath,
