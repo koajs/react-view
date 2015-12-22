@@ -10,6 +10,7 @@
  * Module dependencies.
  */
 
+var register = require('babel/register');
 var request = require('supertest');
 var copy = require('copy-to');
 var path = require('path');
@@ -197,6 +198,8 @@ function App(options) {
   copy({
     views: path.join(__dirname, 'support/views')
   }).to(options);
+
+  register({ only: options.views })
 
   var app = koa();
   react(app, options);
