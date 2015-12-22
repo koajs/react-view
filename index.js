@@ -11,14 +11,12 @@
 
 var ReactDOMServer = require('react-dom/server');
 var beautifyHTML = require('js-beautify').html;
-var register = require('babel/register');
 var assert = require('assert');
 var copy = require('copy-to');
 var React = require('react');
 var path = require('path');
 
 var defaultOptions = {
-  babel: {},
   doctype: '<!DOCTYPE html>',
   beautify: false,
   cache: process.env.NODE_ENV === 'production',
@@ -30,8 +28,6 @@ var defaultOptions = {
 
 module.exports = function (app, _options) {
   _options = _options || {};
-  // only the files in options.views will be compiled by default
-  defaultOptions.babel.only = path.resolve(_options.views || defaultOptions.views);
 
   var options = {};
   copy(_options).and(defaultOptions).to(options);
@@ -39,9 +35,7 @@ module.exports = function (app, _options) {
   options.extname = options.extname.replace(/^\.?/, '.');
 
   // match function for cache clean
-  var match = createMatchFunction(options.babel.only || options.views);
-  // regist babel
-  register(options.babel);
+  var match = createMatchFunction(options.views);
 
   /**
    * render react template to html
