@@ -28,19 +28,19 @@
   },
   "devDependencies": {
     "autod": "2",
-    "babel": "~5.5.4",
-    "babel-core": "~5.5.4",
-    "babel-loader": "~5.1.4",
+    "babel": "~6.3.26",
+    "babel-core": "~6.3.26",
+    "babel-loader": "~6.2.0",
     "escape-html": "~1.0.2",
     "istanbul-harmony": "~0.3.12",
     "jsx-loader": "~0.13.2",
-    "koa": "~0.21.0",
+    "koa": "~1.1.2",
     "koa-static-cache": "~3.1.1",
-    "mocha": "~2.2.5",
-    "should": "~6.0.3",
-    "supertest": "~1.0.1",
+    "mocha": "~2.3.4",
+    "should": "~8.0.2",
+    "supertest": "~1.1.0",
     "unescape-html": "~1.0.0",
-    "webpack": "~1.9.10"
+    "webpack": "~1.12.9"
   },
   "engine": {
     "node": ">=0.12",
