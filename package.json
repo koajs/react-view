@@ -40,7 +40,7 @@
     "should": "~6.0.3",
     "supertest": "~1.0.1",
     "unescape-html": "~1.0.0",
-    "webpack": "~1.9.10"
+    "webpack": "~1.12.11"
   },
   "engine": {
     "node": ">=0.12",
