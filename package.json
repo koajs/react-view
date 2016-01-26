@@ -36,7 +36,7 @@
     "jsx-loader": "~0.13.2",
     "koa": "~0.21.0",
     "koa-static-cache": "~3.1.1",
-    "mocha": "~2.2.5",
+    "mocha": "~2.4.1",
     "should": "~6.0.3",
     "supertest": "~1.0.1",
     "unescape-html": "~1.0.0",
