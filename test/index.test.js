@@ -40,7 +40,7 @@ describe('koa-react-view', function () {
       request(app.listen())
       .get('/')
       .expect(200)
-      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+      .expect(/<!DOCTYPE html><div data-reactroot="" data-reactid="[0-9\-]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
     });
 
     it('should support ReactDOMServer.renderToString without locals', function (done) {
@@ -52,7 +52,7 @@ describe('koa-react-view', function () {
       request(app.listen())
       .get('/')
       .expect(200)
-      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+      .expect(/<!DOCTYPE html><div data-reactroot="" data-reactid="[0-9\-]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
     });
 
     it('should support ReactDOMServer.renderToString using internals option', function (done) {
@@ -66,7 +66,7 @@ describe('koa-react-view', function () {
       request(app.listen())
       .get('/')
       .expect(200)
-      .expect(/<!DOCTYPE html><div data-reactid="\.[a-z0-9]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
+      .expect(/<!DOCTYPE html><div data-reactroot="" data-reactid="[0-9\-]*" data-react-checksum="[0-9\-]*"><\/div>/i, done);
     });
 
     it('should support ctx.state', function (done) {
