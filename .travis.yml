@@ -6,6 +6,6 @@ node_js:
 install:
   - npm i npminstall && npminstall
 script:
-  - npm run ci
+  - npm run test-cov
 after_script:
   - npminstall codecov && codecov
