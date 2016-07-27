@@ -4,7 +4,10 @@
   "description": "server side react render for koa",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "NODE_ENV=test mocha --require should test/*.test.js",
+    "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha -- -u exports --require should test/*.test.js",
+    "test-ci": "npm run test-cov",
+    "autod": "autod"
   },
   "files": [
     "index.js"
@@ -21,29 +24,29 @@
   },
   "license": "MIT",
   "dependencies": {
-    "copy-to": "~2.0.1",
-    "js-beautify": "~1.5.6",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "copy-to": "^2.0.1",
+    "js-beautify": "^1.6.3",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "autod": "2",
-    "babel": "~5.5.4",
-    "babel-core": "~5.5.4",
-    "babel-loader": "~5.1.4",
-    "escape-html": "~1.0.2",
+    "autod": "^2.6.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-register": "^6.11.6",
+    "egg-ci": "^1.0.3",
+    "escape-html": "^1.0.3",
+    "istanbul": "^0.4.4",
     "istanbul-harmony": "~0.3.12",
-    "jsx-loader": "~0.13.2",
-    "koa": "~0.21.0",
-    "koa-static-cache": "~3.1.1",
-    "mocha": "~2.2.5",
-    "should": "~6.0.3",
-    "supertest": "~1.0.1",
-    "unescape-html": "~1.0.0",
+    "koa": "^1.2.1",
+    "koa-static-cache": "^3.1.7",
+    "mocha": "^2.5.3",
+    "should": "^10.0.0",
+    "supertest": "^1.2.0",
+    "unescape-html": "^1.0.0",
     "webpack": "~1.9.10"
   },
   "engine": {
-    "node": ">=0.12",
-    "iojs": ">= 1.0.0"
+    "node": ">=0.12"
   }
 }

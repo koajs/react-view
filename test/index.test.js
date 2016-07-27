@@ -10,12 +10,17 @@
  * Module dependencies.
  */
 
-var register = require('babel/register');
+var register = require('babel-register');
 var request = require('supertest');
 var copy = require('copy-to');
 var path = require('path');
 var react = require('..');
 var koa = require('koa');
+
+register({
+  presets: [ 'es2015', 'react' ],
+  extensions: [ '.jsx' ],
+});
 
 describe('koa-react-view', function () {
   describe('render', function () {
@@ -198,8 +203,6 @@ function App(options) {
   copy({
     views: path.join(__dirname, 'support/views')
   }).to(options);
-
-  register({ only: options.views });
 
   var app = koa();
   react(app, options);

@@ -10,7 +10,7 @@
  */
 
 var staticCache = require('koa-static-cache');
-var register = require('babel/register');
+var register = require('babel-register');
 var react = require('..');
 var path = require('path');
 var koa = require('koa');
@@ -25,10 +25,8 @@ react(app, { views: viewpath });
 // imports babel runtime for JSX views, warning: live transpiling
 // best to precompile in production deploys for perf + reliability
 register({
-  only: [
-    viewpath,
-    assetspath
-  ]
+  presets: [ 'es2015', 'react' ],
+  extensions: [ '.jsx' ],
 });
 
 app.use(staticCache(assetspath));
