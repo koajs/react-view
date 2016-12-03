@@ -36,14 +36,13 @@ var koa = require('koa');
 var app = koa();
 
 var viewpath = path.join(__dirname, 'views');
-var assetspath = path.join(__dirname, 'public');
 
 react(app, {
   views: viewpath
 });
 
 app.use(function* () {
-  this.render(home, {foo: 'bar'});
+  this.render('home', {foo: 'bar'});
 });
 
 ```
